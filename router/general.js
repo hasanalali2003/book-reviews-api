@@ -4,9 +4,34 @@ let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
+const doesExist = (username) => {
+    let usersWithSameName = users.filter((user) => {
+        return user.username === username;
+    });
+    if (usersWithSameName.length > 0) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 public_users.post("/register", (req, res) => {
     //Write your code here
-    return res.status(300).json({ message: "Yet to be implemented" });
+    const username = req.body.username;
+    const password = req.body.password;
+    if (username && password) {
+        if (doesExist(username)) {
+            res.status(404).json({ message: "The username is already exists" });
+        } else {
+            users.push({
+                username: username,
+                password: password,
+            });
+            res.status(300).json({ message: "User successfully registered" });
+        }
+    } else {
+        res.status(404).json({ message: "Please check username and password" });
+    }
 });
 
 // Get the book list available in the shop
