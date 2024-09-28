@@ -1,3 +1,5 @@
+const { text } = require("express");
+
 let books = {
     1: {
         author: "Chinua Achebe",
@@ -15,7 +17,10 @@ let books = {
         author: "Dante Alighieri",
         title: "The Divine Comedy",
         isbn: "33",
-        reviews: {},
+        reviews: {
+            title: "this is review title test",
+            text: "this is review text test",
+        },
     },
     4: {
         author: "Unknown",
