@@ -38,7 +38,7 @@ public_users.post("/register", (req, res) => {
 public_users.get("/", async function (req, res) {
     try {
         const allBooks = await books;
-        res.status(300).json(JSON.stringify(allBooks));
+        res.status(300).json(allBooks);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -51,7 +51,7 @@ public_users.get("/isbn/:isbn", async function (req, res) {
         const book = await Object.values(books).find(
             (book) => book.isbn === isbn
         );
-        return res.status(300).json(JSON.stringify(book));
+        return res.status(300).json(book);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -66,7 +66,7 @@ public_users.get("/author/:author", async function (req, res) {
         );
         const booksByAuthor = await Object.values(getBooksByAuthor);
 
-        res.status(300).json(JSON.stringify(booksByAuthor));
+        res.status(300).json(booksByAuthor);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -81,7 +81,7 @@ public_users.get("/title/:title", async function (req, res) {
         );
         const booksByTitle = await Object.values(getBooksByTitle);
 
-        res.status(300).json(JSON.stringify(booksByTitle));
+        res.status(300).json(booksByTitle);
     } catch (error) {
         res.status(500).json({ error: "Internal Server Error" });
     }
@@ -93,7 +93,7 @@ public_users.get("/review/:isbn", function (req, res) {
     const isbn = req.params.isbn;
     const book = Object.values(books).find((book) => book.isbn === isbn);
     const bookReviews = book.reviews;
-    res.status(300).json(JSON.stringify(bookReviews));
+    res.status(300).json(bookReviews);
 });
 
 module.exports.general = public_users;
