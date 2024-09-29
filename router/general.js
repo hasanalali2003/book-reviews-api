@@ -45,10 +45,16 @@ public_users.get("/", async function (req, res) {
 });
 
 // Get book details based on ISBN
-public_users.get("/isbn/:isbn", function (req, res) {
-    const isbn = req.params.isbn;
-    const book = Object.values(books).find((book) => book.isbn === isbn);
-    return res.status(300).json(JSON.stringify(book));
+public_users.get("/isbn/:isbn", async function (req, res) {
+    try {
+        const isbn = req.params.isbn;
+        const book = await Object.values(books).find(
+            (book) => book.isbn === isbn
+        );
+        return res.status(300).json(JSON.stringify(book));
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 // Get book details based on author
