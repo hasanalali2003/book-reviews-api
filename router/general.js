@@ -35,8 +35,13 @@ public_users.post("/register", (req, res) => {
 });
 
 // Get the book list available in the shop
-public_users.get("/", function (req, res) {
-    return res.status(300).json(JSON.stringify(books));
+public_users.get("/", async function (req, res) {
+    try {
+        const allBooks = await books;
+        res.status(300).json(JSON.stringify(allBooks));
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 // Get book details based on ISBN
