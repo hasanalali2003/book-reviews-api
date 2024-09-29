@@ -58,25 +58,33 @@ public_users.get("/isbn/:isbn", async function (req, res) {
 });
 
 // Get book details based on author
-public_users.get("/author/:author", function (req, res) {
-    const author = req.params.author;
-    const getBooksByAuthor = Object.values(books).filter(
-        (book) => book.author === author
-    );
-    const booksByAuthor = Object.values(getBooksByAuthor);
+public_users.get("/author/:author", async function (req, res) {
+    try {
+        const author = req.params.author;
+        const getBooksByAuthor = await Object.values(books).filter(
+            (book) => book.author === author
+        );
+        const booksByAuthor = await Object.values(getBooksByAuthor);
 
-    res.status(300).json(JSON.stringify(booksByAuthor));
+        res.status(300).json(JSON.stringify(booksByAuthor));
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 // Get all books based on title
-public_users.get("/title/:title", function (req, res) {
-    const title = req.params.title;
-    const getBooksByTitle = Object.values(books).filter(
-        (book) => book.title === title
-    );
-    const booksByTitle = Object.values(getBooksByTitle);
+public_users.get("/title/:title", async function (req, res) {
+    try {
+        const title = req.params.title;
+        const getBooksByTitle = await Object.values(books).filter(
+            (book) => book.title === title
+        );
+        const booksByTitle = await Object.values(getBooksByTitle);
 
-    res.status(300).json(JSON.stringify(booksByTitle));
+        res.status(300).json(JSON.stringify(booksByTitle));
+    } catch (error) {
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 //  Get book review
