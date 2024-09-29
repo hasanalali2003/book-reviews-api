@@ -6,8 +6,8 @@ const regd_users = express.Router();
 let users = [];
 
 const isValid = (username) => {
-    //returns boolean
-    //write code to check is the username is valid
+    if (username.length > 1) return true;
+    else return false;
 };
 
 const authenticatedUser = (username, password) => {
@@ -30,7 +30,7 @@ regd_users.post("/login", (req, res) => {
         res.status(404).json({ message: "You missing username or password!" });
     }
 
-    if (authenticatedUser(username, password)) {
+    if (isValid(username) && authenticatedUser(username, password)) {
         let accessToken = jwt.sign(
             {
                 data: password,
